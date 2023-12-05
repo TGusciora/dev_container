@@ -1,0 +1,28 @@
+# Docker commands
+
+# command to build image:
+docker build -t fastapi-image .
+# . means that its in the current directory (so you have to first go to there with .)
+
+# check mounted docker images
+docker images 
+
+# running image
+docker run --name fastapi-container -p 80:80 fastapi-image
+# -p 80:80 - mapping port 80 to 80
+# fastapi-container - name of the container
+# fastapi-images - name of the image
+
+# If you are on Windows - checking results will be on port
+# http://127.0.0.1/
+
+
+# removing docker-container from instances
+docker rm fastapi-container
+
+# additional option -d means detached mode
+# it will immediately give back the terminal and provide uuid of built container
+docker run --name fastapi-container -p 80:80 -d fastapi-image
+
+# Now it will run in the background of the machine
+
