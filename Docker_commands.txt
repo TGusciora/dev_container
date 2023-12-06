@@ -1,4 +1,5 @@
 # Docker commands
+# 1) First launch docker desktop or docker to run :)
 
 # command to build image:
 docker build -t fastapi-image .
@@ -26,3 +27,49 @@ docker run --name fastapi-container -p 80:80 -d fastapi-image
 
 # Now it will run in the background of the machine
 
+# to stop it you have to first stop docker and then remove
+docker stop fastapi-container
+docker rm fastapi-container
+
+# so after those operations we have our file/codes started  on docker
+# but we can't edit them (we edit files on local, while their copies are in the virtual machine)
+
+# We need a mapping from code to virtual container
+# https://docs.docker.com/storage/volumes/
+
+# -v stands for volume
+# $(pwd) - current working directory
+docker run --name fastapi-container -p 80:80 -d -v $(pwd):/code fastapi-image
+
+# pwd will not work on command prompt - need powershell
+# for windows PowerShell this will look like ( { instead of ( )
+docker run --name fastapi-container -p 80:80 -d -v ${pwd}:/code fastapi-image
+
+
+# another problem - IDE integration
+# we don't get autocompletion and all the good stuff -> so we need to integrate IDE
+# we want to have IDE inside the container
+# 2 extensions in VS Code: 
+# 1) Docker
+# 2) Dev containers
+# Open DEV containers in VS IDE and set "attach to a running container"
+# With lower left menu -> then new VS Code instance will open with DEV container
+# This instance of VS code now lives inside the container
+# open file /code/src/
+
+
+# Now moving to docker compose -> tool to compose images instantly
+# Docker compose is used to simplify everything
+# https://docs.docker.com/compose/
+# https://docs.docker.com/compose/migrate/
+# we configure all service sin .yaml files
+# 1 command to start and stop everything
+
+# In addition to Dockerfile we want to have now a docker-compose.yml
+# starting a container from docker-compose
+docker-compose up
+# terminating a container
+docker-compose down
+
+# docker compose with updating build
+docker-compose down --build
