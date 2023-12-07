@@ -4,7 +4,6 @@ app = FastAPI()
 import redis
 
 r = redis.Redis(host='localhost', port=6379)
-)
 
 @app.get("/")
 def read_root():
@@ -12,5 +11,5 @@ def read_root():
 
 @app.get("/hits")
 def read_root():
-    r.incr('hits')
+    r.incr("hits")
     return {"hits": r.get('hits')}
