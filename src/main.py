@@ -2,6 +2,9 @@ from fastapi import FastAPI
 
 app = FastAPI()
 import redis
+import debugpy
+# debugpy.listen("0.0.0.0", 5678)
+
 
 r = redis.Redis(host='localhost', port=6379)
 
